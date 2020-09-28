@@ -5,22 +5,32 @@
 // @description         论坛自动签到。
 // @description:zh-CN   论坛自动签到。
 // @description:en      Automatically Sign in on each BBS.
-// @namespace           https://greasyfork.org/zh-CN/users/331591
-// @version             1.0.0
-// @author              Hale Shaw
-// @homepage            https://greasyfork.org/zh-CN/scripts/389668
-// @supportURL          https://greasyfork.org/zh-CN/scripts/389668/feedback
+// @namespace           https://github.com/HaleShaw
+// @version             1.2.0
+// @author              HaleShaw
+// @copyright           2020+, HaleShaw (https://github.com/HaleShaw)
+// @license             AGPL-3.0-or-later
+// @homepage            https://github.com/HaleShaw/TM-AutoSign
+// @supportURL          https://github.com/HaleShaw/TM-AutoSign/issues
+// @downloadURL         https://raw.githubusercontent.com/HaleShaw/TM-AutoSign/master/AutoSign.user.js
+// @updateURL           https://raw.githubusercontent.com/HaleShaw/TM-AutoSign/master/AutoSign.user.js
+// @contributionURL     https://www.jianwudao.com/
 // @icon                https://www.itsk.com/favicon.ico
 // @require             https://greasyfork.org/scripts/398010-commonutils/code/CommonUtils.js?version=781197
 // @match               http*://*/plugin.php?id=*sign*
 // @match               http*://bbs.gfan.com/*
 // @match               https://www.itsk.com/dsu_paulsign-sign.html
 // @match               http*://www.52pojie.cn/*
-// @license             AGPL-3.0-or-later
+// @match               https://www.mpyit.com/*
 // @compatible	        Chrome
 // @run-at              document-idle
 // @grant 		          unsafeWindow
 // ==/UserScript==
+
+// ==OpenUserJS==
+// @author              HaleShaw
+// @collaborator        HaleShaw
+// ==/OpenUserJS==
 
 (function () {
 
@@ -33,6 +43,11 @@
 
   // 52破解
   const url52PoJie = "52pojie.cn";
+
+  // 老殁
+  const urlMpy = "mpyit.com";
+  const author = "Hale";
+  const email = "HaleShaw@163.com";
 
   // 签到内容
   const sginText = "剑无道，自动签到！";
@@ -64,6 +79,30 @@
   // 52破解
   else if (isURL(url52PoJie)) {
     document.getElementsByClassName('qq_bind')[0].click();
+    return;
+  }
+
+  // 老殁
+  else if (isURL(urlMpy)) {
+    if (isValidByClassName("reply-to-read")) {
+      if (isValidById("author")) {
+        document.getElementById("author").value = author;
+      }
+      if (isValidById("email")) {
+        document.getElementById("email").value = email;
+      }
+
+      if (isValidById("comment")) {
+        document.getElementById("comment").value = "谢谢分享！";
+
+        if (isValidById("submit")) {
+          let submitObj = document.getElementById("submit");
+          submitObj.click();
+
+          setTimeout("window.location.reload()", 3000);
+        }
+      }
+    }
     return;
   }
 
