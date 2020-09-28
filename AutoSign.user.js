@@ -24,7 +24,7 @@
 // @match               https://www.mpyit.com/*
 // @compatible	        Chrome
 // @run-at              document-idle
-// @grant 		          unsafeWindow
+// @grant               unsafeWindow
 // ==/UserScript==
 
 // ==OpenUserJS==
