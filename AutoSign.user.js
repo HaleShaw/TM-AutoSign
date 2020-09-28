@@ -1,35 +1,35 @@
 // ==UserScript==
-// @name                论坛自动签到
-// @name:zh-CN          论坛自动签到
-// @name:en             Auto Sign
-// @description         论坛自动签到。
-// @description:zh-CN   论坛自动签到。
-// @description:en      Automatically Sign in on each BBS.
-// @namespace           https://github.com/HaleShaw
-// @version             1.2.0
-// @author              HaleShaw
-// @copyright           2020+, HaleShaw (https://github.com/HaleShaw)
-// @license             AGPL-3.0-or-later
-// @homepage            https://github.com/HaleShaw/TM-AutoSign
-// @supportURL          https://github.com/HaleShaw/TM-AutoSign/issues
-// @downloadURL         https://raw.githubusercontent.com/HaleShaw/TM-AutoSign/master/AutoSign.user.js
-// @updateURL           https://raw.githubusercontent.com/HaleShaw/TM-AutoSign/master/AutoSign.user.js
-// @contributionURL     https://www.jianwudao.com/
-// @icon                https://www.itsk.com/favicon.ico
-// @require             https://greasyfork.org/scripts/398010-commonutils/code/CommonUtils.js?version=781197
-// @match               http*://*/plugin.php?id=*sign*
-// @match               http*://bbs.gfan.com/*
-// @match               https://www.itsk.com/dsu_paulsign-sign.html
-// @match               http*://www.52pojie.cn/*
-// @match               https://www.mpyit.com/*
-// @compatible	        Chrome
-// @run-at              document-idle
-// @grant               unsafeWindow
+// @name               论坛自动签到
+// @name:zh-CN         论坛自动签到
+// @name:en            Auto Sign
+// @description        论坛自动签到。
+// @description:zh-CN  论坛自动签到。
+// @description:en     Automatically Sign in on each BBS.
+// @namespace          https://github.com/HaleShaw
+// @version            1.2.0
+// @author             HaleShaw
+// @copyright          2020+, HaleShaw (https://github.com/HaleShaw)
+// @license            AGPL-3.0-or-later
+// @homepage           https://github.com/HaleShaw/TM-AutoSign
+// @supportURL         https://github.com/HaleShaw/TM-AutoSign/issues
+// @downloadURL        https://raw.githubusercontent.com/HaleShaw/TM-AutoSign/master/AutoSign.user.js
+// @updateURL          https://raw.githubusercontent.com/HaleShaw/TM-AutoSign/master/AutoSign.user.js
+// @contributionURL    https://www.jianwudao.com/
+// @icon               https://www.itsk.com/favicon.ico
+// @require            https://greasyfork.org/scripts/398010-commonutils/code/CommonUtils.js?version=781197
+// @match              http*://*/plugin.php?id=*sign*
+// @match              http*://bbs.gfan.com/*
+// @match              https://www.itsk.com/dsu_paulsign-sign.html
+// @match              http*://www.52pojie.cn/*
+// @match              https://www.mpyit.com/*
+// @compatible	       Chrome
+// @run-at             document-idle
+// @grant              unsafeWindow
 // ==/UserScript==
 
 // ==OpenUserJS==
-// @author              HaleShaw
-// @collaborator        HaleShaw
+// @author             HaleShaw
+// @collaborator       HaleShaw
 // ==/OpenUserJS==
 
 (function () {
