@@ -1,9 +1,7 @@
 // ==UserScript==
 // @name               论坛自动签到
-// @name:zh-CN         论坛自动签到
 // @name:en            Auto Sign
 // @description        论坛自动签到。
-// @description:zh-CN  论坛自动签到。
 // @description:en     Automatically Sign in on each BBS.
 // @namespace          https://github.com/HaleShaw
 // @version            1.2.1
