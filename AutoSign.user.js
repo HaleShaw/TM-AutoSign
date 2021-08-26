@@ -4,7 +4,7 @@
 // @description        论坛自动签到。
 // @description:en     Automatically Sign in on each BBS.
 // @namespace          https://github.com/HaleShaw
-// @version            1.2.2
+// @version            1.2.3
 // @author             HaleShaw
 // @copyright          2020+, HaleShaw (https://github.com/HaleShaw)
 // @license            AGPL-3.0-or-later
@@ -21,6 +21,7 @@
 // @match              http*://www.52pojie.cn/*
 // @match              https://www.mpyit.com/*
 // @match              https://pan.baidu.com/disk/home*
+// @match              https://pan.xunlei.com/*
 // @compatible	       Chrome
 // @run-at             document-idle
 // @grant              unsafeWindow
@@ -51,131 +52,143 @@
   // 百度
   const baidu = "https://pan.baidu.com/disk/home";
 
+  // 迅雷
+  const thunder = "https://pan.xunlei.com/";
+
   // 签到内容
   const sginText = "剑无道，自动签到！";
 
-  // IT天空
-  if (isURL(urlSk)) {
-    if (isSignPage()) {
-      sign();
-      return;
-    }
-    return;
-  }
-
-  // 机锋
-  else if (isURL(urlGfan)) {
-    if (isSignPage()) {
-      sign();
-      return;
-    }
-    if (window.find("签到领奖!")) {
-      const currentUrl = window.location.href;
-      window.location.href = urlGfanSign;
-      sign(currentUrl);
-      return;
-    }
-    return;
-  }
-
-  // 52破解
-  else if (isURL(url52PoJie)) {
-    document.getElementsByClassName("qq_bind")[0].click();
-    return;
-  }
-
-  // 老殁
-  else if (isURL(urlMpy)) {
-    if (isValidByClassName("reply-to-read")) {
-      if (isValidById("author")) {
-        document.getElementById("author").value = author;
+  window.onload = function () {
+    // IT天空
+    if (isURL(urlSk)) {
+      if (isSignPage()) {
+        sign();
+        return;
       }
-      if (isValidById("email")) {
-        document.getElementById("email").value = email;
+      return;
+    }
+
+    // 机锋
+    else if (isURL(urlGfan)) {
+      if (isSignPage()) {
+        sign();
+        return;
       }
+      if (window.find("签到领奖!")) {
+        const currentUrl = window.location.href;
+        window.location.href = urlGfanSign;
+        sign(currentUrl);
+        return;
+      }
+      return;
+    }
 
-      if (isValidById("comment")) {
-        document.getElementById("comment").value = "谢谢分享！";
+    // 52破解
+    else if (isURL(url52PoJie)) {
+      document.getElementsByClassName("qq_bind")[0].click();
+      return;
+    }
 
-        if (isValidById("submit")) {
-          let submitObj = document.getElementById("submit");
-          submitObj.click();
+    // 老殁
+    else if (isURL(urlMpy)) {
+      if (isValidByClassName("reply-to-read")) {
+        if (isValidById("author")) {
+          document.getElementById("author").value = author;
+        }
+        if (isValidById("email")) {
+          document.getElementById("email").value = email;
+        }
 
-          setTimeout("window.location.reload()", 3000);
+        if (isValidById("comment")) {
+          document.getElementById("comment").value = "谢谢分享！";
+
+          if (isValidById("submit")) {
+            let submitObj = document.getElementById("submit");
+            submitObj.click();
+
+            setTimeout("window.location.reload()", 3000);
+          }
         }
       }
-    }
 
-    let verify = document.getElementById("verifycode");
-    if (verify) {
-      verify.value = cipher;
-      document.getElementById("verifybtn").click();
-    }
-    return;
-  }
-
-  // 百度
-  else if (isURL(baidu)) {
-    window.location.href = "https://pan.baidu.com/disk/main";
-  }
-
-  // 其他论坛
-  else {
-    if (isSignPage()) {
-      sign();
+      let verify = document.getElementById("verifycode");
+      if (verify) {
+        verify.value = cipher;
+        document.getElementById("verifybtn").click();
+      }
       return;
     }
-    sign2();
-    return;
-  }
 
-  /**
-   * check url.
-   * @param {String} url
-   */
-  function isURL(url) {
-    return window.location.href.indexOf(url) != -1;
-  }
+    // 百度
+    else if (isURL(baidu)) {
+      window.location.href = "https://pan.baidu.com/disk/main";
+    }
 
-  function sign(url) {
-    let kxImg1 = document.getElementById("ch_s");
-    let kxImg2 = document.getElementById("6ch_s");
-    let todaySayTextArea = document.getElementById("todaysay");
-    if (kxImg1 == null && kxImg2 == null) {
+    // 迅雷
+    else if (isURL(thunder)) {
+      const btns = document.querySelectorAll("p.login-btns > a");
+      if (btns && btns.length > 0 && btns[0].textContent == "登录") {
+        btns[0].click();
+      }
+    }
+    // 其他论坛
+    else {
+      if (isSignPage()) {
+        sign();
+        return;
+      }
+      sign2();
       return;
     }
-    if (kxImg1 != null) {
-      kxImg1.setAttribute("checked", true);
-    }
-    if (kxImg2 != null) {
-      kxImg2.setAttribute("checked", true);
-    }
-    todaySayTextArea.value = sginText;
-    const button = document.getElementById("qiandao");
-    button.submit();
-    if (url != null) {
-      window.location.href = url;
-    }
-    return;
-  }
 
-  function sign2() {
-    if (document.getElementById("kx")) {
-      document.getElementById("kx").click();
+    /**
+     * check url.
+     * @param {String} url
+     */
+    function isURL(url) {
+      return window.location.href.indexOf(url) != -1;
     }
-    var todaySayTextArea = document.getElementById("todaysay");
-    if (todaySayTextArea != null) {
+
+    function sign(url) {
+      let kxImg1 = document.getElementById("ch_s");
+      let kxImg2 = document.getElementById("6ch_s");
+      let todaySayTextArea = document.getElementById("todaysay");
+      if (kxImg1 == null && kxImg2 == null) {
+        return;
+      }
+      if (kxImg1 != null) {
+        kxImg1.setAttribute("checked", true);
+      }
+      if (kxImg2 != null) {
+        kxImg2.setAttribute("checked", true);
+      }
       todaySayTextArea.value = sginText;
+      const button = document.getElementById("qiandao");
+      button.submit();
+      if (url != null) {
+        window.location.href = url;
+      }
+      return;
     }
-    try {
-      unsafeWindow.showWindow("qwindow", "qiandao", "post", "0");
-    } catch (err) {
-      console.warn("AutoSign show window error!\n" + err);
-    }
-    return;
-  }
 
-  function isSignPage() {
-    return window.find("今天签到了吗") && window.find("写下今天最想说的话");
-  }
+    function sign2() {
+      if (document.getElementById("kx")) {
+        document.getElementById("kx").click();
+      }
+      var todaySayTextArea = document.getElementById("todaysay");
+      if (todaySayTextArea != null) {
+        todaySayTextArea.value = sginText;
+      }
+      try {
+        unsafeWindow.showWindow("qwindow", "qiandao", "post", "0");
+      } catch (err) {
+        console.warn("AutoSign show window error!\n" + err);
+      }
+      return;
+    }
+
+    function isSignPage() {
+      return window.find("今天签到了吗") && window.find("写下今天最想说的话");
+    }
+  };
 })();
