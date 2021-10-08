@@ -4,7 +4,7 @@
 // @description        论坛自动签到。
 // @description:en     Automatically Sign in on each BBS.
 // @namespace          https://github.com/HaleShaw
-// @version            1.2.3
+// @version            1.2.4
 // @author             HaleShaw
 // @copyright          2020+, HaleShaw (https://github.com/HaleShaw)
 // @license            AGPL-3.0-or-later
@@ -25,6 +25,9 @@
 // @compatible	       Chrome
 // @run-at             document-idle
 // @grant              unsafeWindow
+// @grant              GM_setValue
+// @grant              GM_getValue
+// @grant              GM_registerMenuCommand
 // ==/UserScript==
 
 // ==OpenUserJS==
@@ -47,7 +50,7 @@
   const urlMpy = "mpyit.com";
   const author = "Hale";
   const email = "HaleShaw@163.com";
-  const cipher = "0130";
+  let cipher = GM_getValue("cipher");
 
   // 百度
   const baidu = "https://pan.baidu.com/disk/home";
@@ -91,6 +94,7 @@
 
     // 老殁
     else if (isURL(urlMpy)) {
+      registerMenuCommand();
       if (isValidByClassName("reply-to-read")) {
         if (isValidById("author")) {
           document.getElementById("author").value = author;
@@ -189,6 +193,14 @@
 
     function isSignPage() {
       return window.find("今天签到了吗") && window.find("写下今天最想说的话");
+    }
+
+    function registerMenuCommand() {
+      GM_registerMenuCommand("设置", () => {
+        let cipherInput = prompt("请输入验证码", "");
+        GM_setValue("cipher", cipherInput);
+        cipher = cipherInput;
+      });
     }
   };
 })();
