@@ -4,7 +4,7 @@
 // @description        论坛自动签到。
 // @description:en     Automatically Sign in on each BBS.
 // @namespace          https://github.com/HaleShaw
-// @version            1.2.4
+// @version            1.2.5
 // @author             HaleShaw
 // @copyright          2020+, HaleShaw (https://github.com/HaleShaw)
 // @license            AGPL-3.0-or-later
@@ -59,7 +59,7 @@
   const thunder = "https://pan.xunlei.com/";
 
   // 签到内容
-  const sginText = "剑无道，自动签到！";
+  const signText = "剑无道，自动签到！";
 
   window.onload = function () {
     // IT天空
@@ -96,21 +96,24 @@
     else if (isURL(urlMpy)) {
       registerMenuCommand();
       if (isValidByClassName("reply-to-read")) {
-        if (isValidById("author")) {
-          document.getElementById("author").value = author;
-        }
-        if (isValidById("email")) {
-          document.getElementById("email").value = email;
-        }
+        const comment = document.querySelector('ol.commentlist>li:first-child>div');
+        if (comment && comment.innerText.indexOf("您的评论正在等待审核中") == -1) {
+          if (isValidById("author")) {
+            document.getElementById("author").value = author;
+          }
+          if (isValidById("email")) {
+            document.getElementById("email").value = email;
+          }
 
-        if (isValidById("comment")) {
-          document.getElementById("comment").value = "谢谢分享！";
+          if (isValidById("comment")) {
+            document.getElementById("comment").value = "谢谢分享！";
 
-          if (isValidById("submit")) {
-            let submitObj = document.getElementById("submit");
-            submitObj.click();
+            if (isValidById("submit")) {
+              let submitObj = document.getElementById("submit");
+              submitObj.click();
 
-            setTimeout("window.location.reload()", 3000);
+              setTimeout("window.location.reload()", 3000);
+            }
           }
         }
       }
@@ -166,7 +169,7 @@
       if (kxImg2 != null) {
         kxImg2.setAttribute("checked", true);
       }
-      todaySayTextArea.value = sginText;
+      todaySayTextArea.value = signText;
       const button = document.getElementById("qiandao");
       button.submit();
       if (url != null) {
@@ -181,7 +184,7 @@
       }
       var todaySayTextArea = document.getElementById("todaysay");
       if (todaySayTextArea != null) {
-        todaySayTextArea.value = sginText;
+        todaySayTextArea.value = signText;
       }
       try {
         unsafeWindow.showWindow("qwindow", "qiandao", "post", "0");
