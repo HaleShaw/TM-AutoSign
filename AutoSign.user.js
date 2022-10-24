@@ -4,14 +4,14 @@
 // @description        论坛自动签到。
 // @description:en     Automatically Sign in on each BBS.
 // @namespace          https://github.com/HaleShaw
-// @version            1.2.5
+// @version            1.2.6
 // @author             HaleShaw
 // @copyright          2020+, HaleShaw (https://github.com/HaleShaw)
 // @license            AGPL-3.0-or-later
 // @homepage           https://github.com/HaleShaw/TM-AutoSign
 // @supportURL         https://github.com/HaleShaw/TM-AutoSign/issues
-// @downloadURL        https://raw.githubusercontent.com/HaleShaw/TM-AutoSign/master/AutoSign.user.js
-// @updateURL          https://raw.githubusercontent.com/HaleShaw/TM-AutoSign/master/AutoSign.user.js
+// @downloadURL        https://github.com/HaleShaw/TM-AutoSign/raw/master/AutoSign.user.js
+// @updateURL          https://github.com/HaleShaw/TM-AutoSign/raw/master/AutoSign.user.js
 // @contributionURL    https://www.jianwudao.com/
 // @icon               https://www.itsk.com/favicon.ico
 // @require            https://greasyfork.org/scripts/398010-commonutils/code/CommonUtils.js?version=781197
@@ -22,6 +22,7 @@
 // @match              https://www.mpyit.com/*
 // @match              https://pan.baidu.com/disk/home*
 // @match              https://pan.xunlei.com/*
+// @match              https://account.teambition.com/login*
 // @compatible	       Chrome
 // @run-at             document-idle
 // @grant              unsafeWindow
@@ -57,6 +58,9 @@
 
   // 迅雷
   const thunder = "https://pan.xunlei.com/";
+
+  // Teambition
+  const teambition = "https://account.teambition.com/login";
 
   // 签到内容
   const signText = "剑无道，自动签到！";
@@ -136,6 +140,17 @@
       const btns = document.querySelectorAll("p.login-btns > a");
       if (btns && btns.length > 0 && btns[0].textContent == "登录") {
         btns[0].click();
+      }
+    }
+
+    // Teambition
+    else if (isURL(teambition)) {
+      let button = document.querySelector('button');
+      if (!button) {
+        return;
+      }
+      if (button.textContent == '登录') {
+        button.click();
       }
     }
     // 其他论坛
