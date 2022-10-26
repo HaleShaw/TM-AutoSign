@@ -1,10 +1,10 @@
 // ==UserScript==
 // @name               论坛自动签到
 // @name:en            Auto Sign
-// @description        论坛自动签到。
+// @description        论坛自动签到
 // @description:en     Automatically Sign in on each BBS.
 // @namespace          https://github.com/HaleShaw
-// @version            1.2.7
+// @version            1.2.8
 // @author             HaleShaw
 // @copyright          2020+, HaleShaw (https://github.com/HaleShaw)
 // @license            AGPL-3.0-or-later
@@ -16,9 +16,9 @@
 // @icon               https://www.itsk.com/favicon.ico
 // @require            https://greasyfork.org/scripts/398010-commonutils/code/CommonUtils.js?version=781197
 // @match              http*://*/plugin.php?id=*sign*
-// @match              http*://bbs.gfan.com/*
 // @match              https://www.itsk.com/dsu_paulsign-sign.html
 // @match              http*://www.52pojie.cn/*
+// @match              https://mpyit.com/*
 // @match              https://www.mpyit.com/*
 // @match              https://pan.baidu.com/disk/home*
 // @match              https://pan.xunlei.com/*
@@ -38,10 +38,6 @@
 (function () {
   // IT天空
   const urlSk = "https://www.itsk.com/dsu_paulsign-sign.html";
-
-  // 机锋论坛
-  const urlGfan = "http://bbs.gfan.com";
-  const urlGfanSign = "http://bbs.gfan.com/plugin.php?id=dsu_paulsign:sign";
 
   // 52破解
   const url52PoJie = "52pojie.cn";
@@ -68,21 +64,6 @@
   if (isURL(urlSk)) {
     if (isSignPage()) {
       sign();
-      return;
-    }
-    return;
-  }
-
-  // 机锋
-  else if (isURL(urlGfan)) {
-    if (isSignPage()) {
-      sign();
-      return;
-    }
-    if (window.find("签到领奖!")) {
-      const currentUrl = window.location.href;
-      window.location.href = urlGfanSign;
-      sign(currentUrl);
       return;
     }
     return;
