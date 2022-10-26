@@ -1,8 +1,8 @@
 // ==UserScript==
-// @name               论坛自动签到
-// @name:en            Auto Sign
-// @description        论坛自动签到
-// @description:en     Automatically Sign in on each BBS.
+// @name               自动登录签到
+// @name:en            Auto Login
+// @description        网站自动登录，自动签到
+// @description:en     Automatically login or sign in on each website.
 // @namespace          https://github.com/HaleShaw
 // @version            1.2.8
 // @author             HaleShaw
