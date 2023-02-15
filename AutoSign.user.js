@@ -4,7 +4,7 @@
 // @description        网站自动登录，自动签到
 // @description:en     Automatically login or sign in on each website.
 // @namespace          https://github.com/HaleShaw
-// @version            1.2.8
+// @version            1.2.9
 // @author             HaleShaw
 // @copyright          2020+, HaleShaw (https://github.com/HaleShaw)
 // @license            AGPL-3.0-or-later
@@ -79,6 +79,10 @@
   else if (isURL(urlMpy)) {
     registerMenuCommand();
     removeADDialog();
+
+    // 定位到“快速下载”
+    window.location.hash = "#erphpdown";
+
     if (isValidByClassName("reply-to-read")) {
       const comment = document.querySelector('ol.commentlist>li:first-child>div');
       if (comment && comment.innerText.indexOf("您的评论正在等待审核中") == -1) {
