@@ -4,7 +4,7 @@
 // @description        网站自动登录，自动签到
 // @description:en     Automatically login or sign in on each website.
 // @namespace          https://github.com/HaleShaw
-// @version            1.2.9
+// @version            1.3.0
 // @author             HaleShaw
 // @copyright          2020+, HaleShaw (https://github.com/HaleShaw)
 // @license            AGPL-3.0-or-later
@@ -16,7 +16,7 @@
 // @icon               https://www.itsk.com/favicon.ico
 // @require            https://greasyfork.org/scripts/398010-commonutils/code/CommonUtils.js?version=781197
 // @match              http*://*/plugin.php?id=*sign*
-// @match              https://www.itsk.com/dsu_paulsign-sign.html
+// @match              https://www.itsk.com/*
 // @match              http*://www.52pojie.cn/*
 // @match              https://mpyit.com/*
 // @match              https://www.mpyit.com/*
@@ -37,7 +37,7 @@
 
 (function () {
   // IT天空
-  const urlSk = "https://www.itsk.com/dsu_paulsign-sign.html";
+  const urlSk = "www.itsk.com";
 
   // 52破解
   const url52PoJie = "52pojie.cn";
@@ -61,11 +61,8 @@
   const signText = "剑无道，自动签到！";
 
   // IT天空
-  if (isURL(urlSk)) {
-    if (isSignPage()) {
-      sign();
-      return;
-    }
+  if (urlSk == location.host) {
+    signItSK();
     return;
   }
 
@@ -84,7 +81,7 @@
     window.location.hash = "#erphpdown";
 
     if (isValidByClassName("reply-to-read")) {
-      const comment = document.querySelector('ol.commentlist>li:first-child>div');
+      const comment = document.querySelector("ol.commentlist>li:first-child>div");
       if (comment && comment.innerText.indexOf("您的评论正在等待审核中") == -1) {
         if (isValidById("author")) {
           document.getElementById("author").value = author;
@@ -127,11 +124,11 @@
 
   // Teambition
   else if (isURL(teambition)) {
-    let button = document.querySelector('button');
+    let button = document.querySelector("button");
     if (!button) {
       return;
     }
-    if (button.textContent == '登录') {
+    if (button.textContent == "登录") {
       button.click();
     }
   }
@@ -149,9 +146,9 @@
    * Remove the dialog which reminding to close AD block plugin.
    */
   function removeADDialog() {
-    let titles = document.querySelectorAll('h2');
+    let titles = document.querySelectorAll("h2");
     for (let i = 0; i < titles.length; i++) {
-      if (titles[i].textContent.indexOf('广告拦截') != -1) {
+      if (titles[i].textContent.indexOf("广告拦截") != -1) {
         titles[i].parentElement.parentElement.remove();
         break;
       }
@@ -185,6 +182,21 @@
       window.location.href = url;
     }
     return;
+  }
+
+  function signItSK() {
+    let button = document.querySelector(
+      "div.ivu-poptip-inner > div.ivu-poptip-body > div.ivu-poptip-body-content > div.user-center-content > div.header-end > span.sign"
+    );
+    button.click();
+    setTimeout(() => {
+      let closeBtn = document.querySelector(
+        "#__layout > div > div.singin-mask > div > div.signin-close"
+      );
+      if (closeBtn) {
+        closeBtn.click();
+      }
+    }, 1000);
   }
 
   function sign2() {
