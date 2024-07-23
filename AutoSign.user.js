@@ -4,7 +4,7 @@
 // @description        网站自动登录，自动签到
 // @description:en     Automatically login or sign in on each website.
 // @namespace          https://github.com/HaleShaw
-// @version            1.3.0
+// @version            1.3.1
 // @author             HaleShaw
 // @copyright          2020+, HaleShaw (https://github.com/HaleShaw)
 // @license            AGPL-3.0-or-later
@@ -185,13 +185,13 @@
   }
 
   function signItSK() {
-    let button = document.querySelector(
-      "div.ivu-poptip-inner > div.ivu-poptip-body > div.ivu-poptip-body-content > div.user-center-content > div.header-end > span.sign"
-    );
-    button.click();
+    let button = document.querySelector("div.user-info > div.user-footer > span:nth-child(1)");
+    if (button && button.textContent == "签到") {
+      button.click();
+    }
     setTimeout(() => {
       let closeBtn = document.querySelector(
-        "#__layout > div > div.singin-mask > div > div.signin-close"
+        "div.sign-mask > div.sign-content.sign-first > div.inner > div.close"
       );
       if (closeBtn) {
         closeBtn.click();
