@@ -185,18 +185,20 @@
   }
 
   function signItSK() {
-    let button = document.querySelector("div.user-info > div.user-footer > span:nth-child(1)");
-    if (button && button.textContent == "签到") {
-      button.click();
-    }
+    setTimeout(() => {
+      let button = document.querySelector("div.user-info > div.user-footer > span:nth-child(1)");
+      if (button && button.textContent == "签到") {
+        button.click();
+      }
+    }, 1000);
     setTimeout(() => {
       let closeBtn = document.querySelector(
-        "div.sign-mask > div.sign-content.sign-first > div.inner > div.close"
+        "div.sign-mask > div.sign-content > div.inner > div.close"
       );
       if (closeBtn) {
         closeBtn.click();
       }
-    }, 1000);
+    }, 2000);
   }
 
   function sign2() {
