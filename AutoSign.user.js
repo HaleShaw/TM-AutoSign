@@ -4,7 +4,7 @@
 // @description        网站自动登录，自动签到
 // @description:en     Automatically login or sign in on each website.
 // @namespace          https://github.com/HaleShaw
-// @version            1.3.1
+// @version            1.3.2
 // @author             HaleShaw
 // @copyright          2020+, HaleShaw (https://github.com/HaleShaw)
 // @license            AGPL-3.0-or-later
@@ -120,6 +120,20 @@
     if (btns && btns.length > 0 && btns[0].textContent == "登录") {
       btns[0].click();
     }
+
+    const BLOCKED_MESSAGES = [
+      "该分享内容可能因为涉及侵权、色情、反动、低俗等信息，无法访问！",
+      "抱歉，该分享已被作者删除",
+    ];
+
+    const shouldClosePage = () =>
+      BLOCKED_MESSAGES.some(message => document.body.textContent.includes(message));
+
+    setTimeout(() => {
+      if (shouldClosePage()) {
+        window.close();
+      }
+    }, 2000);
   }
 
   // Teambition
