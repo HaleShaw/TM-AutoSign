@@ -4,7 +4,7 @@
 // @description        网站自动登录，自动签到
 // @description:en     Automatically login or sign in on each website.
 // @namespace          https://github.com/HaleShaw
-// @version            1.3.2
+// @version            1.3.3
 // @author             HaleShaw
 // @copyright          2020+, HaleShaw (https://github.com/HaleShaw)
 // @license            AGPL-3.0-or-later
@@ -62,7 +62,12 @@
 
   // IT天空
   if (urlSk == location.host) {
-    signItSK();
+    setTimeout(() => {
+      let button = document.querySelector(".sign-res > button");
+      if (button && button.textContent.trim() == "签到") {
+        button.click();
+      }
+    }, 1000);
     return;
   }
 
@@ -196,23 +201,6 @@
       window.location.href = url;
     }
     return;
-  }
-
-  function signItSK() {
-    setTimeout(() => {
-      let button = document.querySelector("div.user-info > div.user-footer > span:nth-child(1)");
-      if (button && button.textContent == "签到") {
-        button.click();
-      }
-    }, 1000);
-    setTimeout(() => {
-      let closeBtn = document.querySelector(
-        "div.sign-mask > div.sign-content > div.inner > div.close"
-      );
-      if (closeBtn) {
-        closeBtn.click();
-      }
-    }, 2000);
   }
 
   function sign2() {
