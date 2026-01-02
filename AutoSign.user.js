@@ -63,11 +63,17 @@
   // IT天空
   if (urlSk == location.host) {
     setTimeout(() => {
-      let button = document.querySelector(".sign-res > button");
+      let button = document.querySelector("div.user-info > div.user-footer > span:nth-child(1)");
       if (button && button.textContent.trim() == "签到") {
         button.click();
       }
     }, 1000);
+    setTimeout(() => {
+      let button = document.querySelector(".sign-res > button");
+      if (button && button.textContent.trim() == "签到") {
+        button.click();
+      }
+    }, 2000);
     return;
   }
 
