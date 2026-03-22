@@ -4,7 +4,7 @@
 // @description        网站自动登录，自动签到
 // @description:en     Automatically login or sign in on each website.
 // @namespace          https://github.com/HaleShaw
-// @version            1.3.3
+// @version            1.3.4
 // @author             HaleShaw
 // @copyright          2020+, HaleShaw (https://github.com/HaleShaw)
 // @license            AGPL-3.0-or-later
@@ -62,18 +62,32 @@
 
   // IT天空
   if (urlSk == location.host) {
-    setTimeout(() => {
-      let button = document.querySelector("div.user-info > div.user-footer > span:nth-child(1)");
-      if (button && button.textContent.trim() == "签到") {
+    // 延迟函数
+    const delay = ms => new Promise(resolve => setTimeout(resolve, ms));
+
+    (async () => {
+      await delay(1000);
+
+      const tip = document.querySelector(
+        "div.vip.item.draw-lucky > div.el-badge > sup.el-badge__content--danger"
+      );
+
+      // 未签到时，“签到”右上角会有红色标识
+      if (!tip || tip.style.display === "none" || tip.parentElement.textContent.trim() !== "签到") {
+        return;
+      }
+
+      // 点击 tip
+      tip.parentElement.click();
+
+      // 等待一秒后再执行 button 逻辑
+      await delay(1000);
+
+      const button = document.querySelector(".sign-res > button.el-button--success");
+      if (button && button.textContent.trim() === "签到") {
         button.click();
       }
-    }, 1000);
-    setTimeout(() => {
-      let button = document.querySelector(".sign-res > button");
-      if (button && button.textContent.trim() == "签到") {
-        button.click();
-      }
-    }, 2000);
+    })();
     return;
   }
 
